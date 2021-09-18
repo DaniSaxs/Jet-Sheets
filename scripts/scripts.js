@@ -1,21 +1,24 @@
 function checkForWindowResize() {
     // console.log(`Screen width: ${window.innerWidth}`);
     if (window.innerWidth > 1024) {
+        all(25);
         $('.logo').addClass('position-absolute');
         $('.logo').removeClass('mt-2');
         $('.logo').removeClass('mb-4');
-        all(25);
+        $('body').css({'overflow-y' : 'hidden'});
     }else if (window.innerWidth > 768 && window.innerWidth <= 1024){
         all(15);
+        $('body').css({'overflow-y' : 'initial'});
     }else {
+        all(8);
         $('.logo').removeClass('position-absolute');
         $('.logo').addClass('mt-2');
         $('.logo').addClass('mb-4');
-        all(8);
+        $('body').css({'overflow-y' : 'initial'});
     }
 }
 
-checkForWindowResize()
+checkForWindowResize();
 
 window.addEventListener('resize', checkForWindowResize);
 
@@ -148,7 +151,7 @@ function all(cantF){
                 localStorage.setItem('sheets',JSON.stringify(sheets));
                 $('#counter').html(counter.count);
                 $('#output').html(database.length - counter.count - 1);
-                
+                localStorage.clear();
                 Swal.fire({
                     title: 'Eliminado!',
                     text : 'La tabla ha sido eliminada satisfactoriamente',
