@@ -13,16 +13,20 @@ body{
     user-select: none; 
 }
 
-.bg-image{
-    position: absolute;
+#tableJ> tr> td{
+    width: 20px !important;
+}
+
+body{
+    /* position: absolute; */
     background-image: url(./../Assets/background.jpg);
-    background-position: center;
+    background-position: top;
     background-size: cover;
-    background-repeat: no-repeat;
-    filter: blur(4px);
+    background-repeat: repeat-y;
+    /* filter: blur(4px);
     -webkit-filter: blur(4px);
     height: 100%;
-    width: 100%;
+    width: 100%; */
 }
 
 #tableJ{
