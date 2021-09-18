@@ -4,6 +4,7 @@
 
 body{
     height: 100%;
+    overflow-x: hidden;
 }
 
 #tableJ> tr> td, .noSelect{

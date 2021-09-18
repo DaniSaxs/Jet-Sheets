@@ -1,10 +1,16 @@
 function checkForWindowResize() {
     // console.log(`Screen width: ${window.innerWidth}`);
     if (window.innerWidth > 1024) {
+        $('.logo').addClass('position-absolute');
+        $('.logo').removeClass('mt-2');
+        $('.logo').removeClass('mb-4');
         all(25);
     }else if (window.innerWidth > 768 && window.innerWidth <= 1024){
         all(15);
     }else {
+        $('.logo').removeClass('position-absolute');
+        $('.logo').addClass('mt-2');
+        $('.logo').addClass('mb-4');
         all(8);
     }
 }

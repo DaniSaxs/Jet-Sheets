@@ -17,27 +17,28 @@
 
     <!-- <div class="bg-image"></div> -->
 
-    <div class="container p-4">
-        <div class="w-100 position-relative d-flex justify-content-center align-items-center">
-            <a href="/" title="Inicio" class="hvr-grow-rotate d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; border: 2px solid white; overflow: hidden; border-radius: 100%; box-shadow: 0 0 10px 1px rgba(0,0,0,0.5);">
-                <img src="./Assets/logo.ico"style="width: 140%">
-            </a>
-            <div class="position-absolute" style="right: 0;">
-                <div class="w-100 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-primary m-4 hvr-wobble-skew" data-bs-toggle="modal" data-bs-target="#newForm"><i class="fa fa-plus-circle"></i> New</button>
-                    <h5 class="m-0 text-white"><i class="fa fa-check-circle text-primary" style="text-shadow: 0 0 10px rgba(255,255,255,1);"></i> : <span style="text-shadow: 0 0 10px rgba(0,0,0,1);" id="counter"></span></h5>
-                </div>
-            </div>
-            <div class="position-absolute" style="left: 0;">
+    <div class="w-100 d-flex mt-4 justify-content-center position-relative">
+        <a href="/" title="Inicio" class="logo position-absolute hvr-grow-rotate d-flex justify-content-center align-items-center" style="width: 60px; height: 60px; border: 2px solid white; overflow: hidden; border-radius: 100%; box-shadow: 0 0 10px 1px rgba(0,0,0,0.5);">
+            <img src="./Assets/logo.ico"style="width: 140%">
+        </a>
+    </div>
+
+    <div class="container px-4">
+        <div class="row">
+            <div class="col-md-5 d-flex justify-content-center align-items-center">
                 <button class="btn btn-danger hvr-wobble-horizontal" id="removeAll"><i class="fa fa-trash"></i> Remove All</button>
-                <button class="btn btn-success hvr-wobble-skew" onclick="downloadFile()"><i class="fa fa-download"></i> Download</button>
+                <button class="btn btn-success hvr-wobble-skew mx-2" onclick="downloadFile()"><i class="fa fa-download"></i> Download</button>
                 <label for="inputfile" class="btn btn-info hvr-wobble-skew"><i class="fa fa-file-text"></i> Import</label>
                 <input class="btn btn-info d-none" type="file" accept=".txt" name="inputfile" id="inputfile">
+            </div>
+            <div class="col-md-3 offset-md-4 d-flex justify-content-center align-items-center">
+                <button class="btn btn-primary m-4 hvr-wobble-skew" data-bs-toggle="modal" data-bs-target="#newForm"><i class="fa fa-plus-circle"></i> New</button>
+                <h5 class="m-0 text-white"><i class="fa fa-check-circle text-primary" style="text-shadow: 0 0 10px rgba(255,255,255,1);"></i> : <span style="text-shadow: 0 0 10px rgba(0,0,0,1);" id="counter"></span></h5>
             </div>
         </div>
         <div class="w-100 d-flex justify-content-center">
             <div class="d-flex justify-content-center align-items-center flex-column position-absolute">
-                <table class="table table-bordered mt-4">
+                <table class="table table-bordered mt-2">
                     <tbody id="tableJ">
                       
                     </tbody>
