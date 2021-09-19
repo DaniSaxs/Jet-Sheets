@@ -148,7 +148,6 @@ function all(cantF){
                     $(`#${sheets[i].id}`).attr(`flag${sheets[i].id}`, "true");
                     counter.count = 0;
                 }
-                localStorage.setItem('sheets',JSON.stringify(sheets));
                 $('#counter').html(counter.count);
                 $('#output').html(database.length - counter.count - 1);
                 localStorage.clear();
@@ -273,6 +272,38 @@ function all(cantF){
     rangeInput("#fromInput");
     rangeInput("#toInput");
 
+    function check(){
+        var fromA = 0;
+        var toA = 0;
+        var fromInputA = $('#fromInput');
+        var toInputA = $('#toInput');
+        if (fromInputA.val() === "" || fromInputA.val() <= 0) {
+            fromA = 0;
+        }else{
+            fromA = fromInputA.val() - 1;
+        }
+        if (toInputA.val() === "" || toInputA.val() > (database.length - 1)) {
+            toA = database.length - 2;
+        }else{
+            toA = toInputA.val() - 1;
+        }
+        if(fromA > toA){
+            fromInputA.addClass('is-invalid');
+            toInputA.addClass('is-invalid');
+        }else{
+            fromInputA.removeClass('is-invalid');
+            toInputA.removeClass('is-invalid');
+        }
+    }
+
+    $('#fromInput').keyup(() => {
+        check();
+    });
+
+    $('#toInput').keyup(() => {
+        check();
+    });
+
     $('#newSendBtn').click(() => {
         if(typeFlag){
             var from = 0;
@@ -289,9 +320,10 @@ function all(cantF){
             }else{
                 to = toInput.val() - 1;
             }
-            if($('#fromInput').val() > $('#toInput').val()){
-                from = $('#toInput').val() - 1;
-                to = $('#fromInput').val() - 1; 
+            if(from > to){
+                console.log('error');
+                fromInput.focus();
+                return false;
             }
             for (let i = from; i <= to; i++) {
                 selectSheets(i);
@@ -325,6 +357,9 @@ function all(cantF){
         $('#fromInput').val("");
         $('#toInput').val("");
         $('#numbersFInput').val("");
+        if (window.innerWidth > 1024) {
+            $('body').css({'overflow-y' : 'hidden'});
+        }
     });
 
 }
