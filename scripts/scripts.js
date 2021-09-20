@@ -20,8 +20,9 @@ function checkForWindowResize() {
 
 checkForWindowResize();
 
-window.addEventListener('resize', checkForWindowResize);
-
+window.addEventListener('onload', checkForWindowResize);
+// window.addEventListener('resize', checkForWindowResize);
+localStorage.clear();
 function all(cantF){
 
     var sheets = [];
@@ -90,25 +91,27 @@ function all(cantF){
         });
     }
 
+    update();
+
     var mouseIsDown = false;
 
     function selectSheets(i){
-        var finded = sheets.find(e => e.id === sheets[i].id);
         if($(`#${sheets[i].id}`).attr(`flag${sheets[i].id}`) === "true"){
             $(`#${sheets[i].id}`).addClass('buttonClick');
-            finded.flag = false;
+            sheets[i].flag = false;
             counter.count += 1;
             $(`#${sheets[i].id}`).attr(`flag${sheets[i].id}`, "false");
         }
         else{
             $(`#${sheets[i].id}`).removeClass('buttonClick');
-            finded.flag = true;
+            sheets[i].flag = true;
             counter.count -= 1;
             $(`#${sheets[i].id}`).attr(`flag${sheets[i].id}`, "true")
         }
         if(counter.count < 0){
             counter.count = 0;
         }
+        localStorage.clear();
         localStorage.setItem('sheets',JSON.stringify(sheets));
         $('#counter').html(counter.count);
         $('#output').html(database.length - counter.count - 1);
@@ -163,8 +166,6 @@ function all(cantF){
 
     });
 
-    update();
-
     function download(filename, text) {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -178,9 +179,9 @@ function all(cantF){
         document.body.removeChild(element);
     }
 
-    function downloadFile(){
+    $('#downloadButton').click(() => {
         download("Database.txt", JSON.stringify(database));
-    }
+    });
 
     var newDatabase = [];
 
@@ -241,6 +242,11 @@ function all(cantF){
                 $('#numbersForm').removeClass('d-none');
                 typeFlag = false;
             }
+            $('#fromInput').val("");
+            $('#toInput').val("");
+            $('#numbersFInput').val("");
+            $('#fromInput').removeClass('is-invalid');
+            $('#toInput').removeClass('is-invalid');
         })
     });
 
@@ -304,6 +310,8 @@ function all(cantF){
         check();
     });
 
+    var numbersKeyUp = [];
+
     $('#newSendBtn').click(() => {
         if(typeFlag){
             var from = 0;
@@ -315,14 +323,23 @@ function all(cantF){
             }else{
                 from = fromInput.val() - 1;
             }
-            if (toInput.val() === "" || toInput.val() > (database.length - 1)) {
+            if (toInput.val() === "") {
                 to = database.length - 2;
             }else{
                 to = toInput.val() - 1;
             }
             if(from > to){
-                console.log('error');
                 fromInput.focus();
+                return false;
+            }
+            if(to > database.length - 2){
+                Swal.fire({
+                    title: 'Cantidad Inválida',
+                    text : `Debes insertar valores menor o iguales a ${database.length - 1}`,
+                    icon : 'error',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
                 return false;
             }
             for (let i = from; i <= to; i++) {
@@ -343,8 +360,19 @@ function all(cantF){
                     numbersArray.splice(0,1);
                 }
                 numbers = numbersArray;
+                numbersKeyUp = numbers;
             }
             for (let i = 0; i < numbers.length; i++) {
+                if(numbers[i] > database.length - 1){
+                    Swal.fire({
+                        title: 'Cantidad Inválida',
+                        text : `Debes insertar valores menor o iguales a ${database.length - 1}`,
+                        icon : 'error',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    return false;
+                }
                 selectSheets(numbers[i] - 1);
                 numbersFInput.val("");
             }
